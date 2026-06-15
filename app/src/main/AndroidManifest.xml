@@ -1,0 +1,85 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ── Normal permissions (granted at install time) ────────────────────── -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+        AlarmTool uses ACTION_SET_ALARM which targets the system Clock app.
+        This is a normal (install-time) permission; no runtime grant required.
+    -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+    <!-- ── Dangerous permissions (must be requested at runtime) ─────────────── -->
+
+    <!-- CallTool -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- SmsTool -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <!-- ContactTool -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!--
+        FileTool on API 26–32.
+        On API 33+ (TIRAMISU) this permission no longer exists; non-media
+        files in Downloads are accessed via MediaStore without any permission.
+        maxSdkVersion ensures this declaration is ignored on API 33+.
+    -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!--
+        Package-visibility on API 30+.
+
+        QUERY_ALL_PACKAGES is a policy-restricted permission that Google Play
+        requires justification for.  Instead we declare exactly the intent
+        we need: apps with a MAIN/LAUNCHER activity.  This makes all
+        home-screen apps visible to getLaunchIntentForPackage() and
+        queryIntentActivities() without the broad permission.
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SET_ALARM" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.CALL" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".OpenAssistApp"
+        android:label="OpenAssist"
+        android:icon="@drawable/app_home_icon"
+        android:roundIcon="@drawable/app_home_icon"
+        android:theme="@style/Theme.OpenAssist"
+        android:allowBackup="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>

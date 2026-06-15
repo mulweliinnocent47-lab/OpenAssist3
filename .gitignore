@@ -1,0 +1,6 @@
+.gradle/
+build/
+
+# Keep PRs source-only. Add release media locally or through an approved asset pipeline.
+/app/src/main/assets/splash.mp4
+/icon.png
