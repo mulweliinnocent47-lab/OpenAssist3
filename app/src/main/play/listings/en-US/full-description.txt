@@ -1,0 +1,3 @@
+OpenAssist is a local-first AI assistant for Android that brings together chat, OpenRouter models, local model workflows, safe device tools, voice, workspace files, knowledge search, MCP integrations, and agent task planning.
+
+Sensitive actions such as calls, SMS messages, alarms, files, and connected tools require explicit confirmation and Android permissions before execution.

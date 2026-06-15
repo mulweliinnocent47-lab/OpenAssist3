@@ -1,0 +1,26 @@
+name: Release checks
+
+on:
+  pull_request:
+  push:
+    branches: [ main, work ]
+
+jobs:
+  source-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source-only PR
+        run: ./scripts/release_checks.sh
+
+  android-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Run unit tests
+        run: gradle test --no-daemon
