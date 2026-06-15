@@ -1,0 +1,1 @@
+Initial internal release for testing OpenAssist chat, models, workspace, knowledge, voice, MCP connections, and safe device tools.
